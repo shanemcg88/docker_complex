@@ -6,6 +6,14 @@ services:
             - POSTGRES_PASSWORD=postgres_password
     redis:
         image: 'redis:latest'
+    nginx:
+        # nginx is routing traffic to the entire app. Therefore we need it to always run
+        restart: always
+        build:
+            dockerfile: Dockerfile.dev
+            context: ./nginx
+        ports:
+            - '3050:80'
     api:
         build:
             dockerfile: Dockerfile.dev
